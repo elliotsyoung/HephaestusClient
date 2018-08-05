@@ -135,9 +135,7 @@
         $("#emotion").removeClass("animated swing infinite")
         $("#emotion").addClass("animated rubberBand")
         kathy.Speak(msg);
-        setTimeout(() => {
-          $("#spoken-text").hide();
-        }, 6000);
+        
       });
 
       socket.on('typing', function(data) {
