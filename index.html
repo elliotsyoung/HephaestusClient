@@ -149,6 +149,7 @@
         animateSmiley();
         $("#emotion").removeClass("animated swing infinite")
         $("#emotion").addClass("animated rubberBand")
+<<<<<<< HEAD
         if (!bb8_voice_activated) {
           kathy.Speak(msg);
         } else {
@@ -157,6 +158,10 @@
         setTimeout(() => {
           $("#spoken-text").hide();
         }, 6000);
+=======
+        kathy.Speak(msg);
+        
+>>>>>>> 6084cd92ba262c35357d4856e1e50a034bba9b2e
       });
 
       socket.on('typing', function(data) {
