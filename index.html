@@ -95,9 +95,15 @@
           awsCredentials: awsCredentials,
           awsRegion: "us-west-2",
           pollyVoiceId: new_voice,
-          cacheSpeech: true
+          cacheSpeech: false
         }
         kathy = ChattyKathy(settings)
+        if (new_voice == "BB8") {
+          bb8_voice_activated = true;
+        } else {
+          bb8_voice_activated = false;
+        }
+
       })
 
       ipcRenderer.on("robot speak command", function(event, msg) {
@@ -123,6 +129,15 @@
         room: 'pi-client'
       })
 
+      let bb8_sounds = [];
+      for (let i = 1; i <= 20; i++) {
+        const file_name = `./bb8sounds/bb8-${i}.mp3`
+        bb8_sounds.push(file_name);
+      }
+      console.log(bb8_sounds);
+
+      let bb8_voice_activated = false;
+
       socket.on('robot speak command', function(msg) {
         console.log("robot speak command recieved");
         console.log(msg);
@@ -134,7 +149,11 @@
         animateSmiley();
         $("#emotion").removeClass("animated swing infinite")
         $("#emotion").addClass("animated rubberBand")
-        kathy.Speak(msg);
+        if (!bb8_voice_activated) {
+          kathy.Speak(msg);
+        } else {
+          $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
+        }
         setTimeout(() => {
           $("#spoken-text").hide();
         }, 6000);
@@ -213,6 +232,9 @@
       // JQUERY FUNCTION END
     });
   </script>
+  <audio src="" id="bb8_sound_player" autoplay>
+
+  </audio>
 </body>
 
 </html>
