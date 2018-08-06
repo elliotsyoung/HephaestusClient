@@ -152,9 +152,21 @@
         if (!bb8_voice_activated) {
           kathy.Speak(msg);
         } else {
+          bb8_play_count = Math.floor(msg.split(" ").length/3);
+          console.log();
           $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
         }
       });
+
+      $("#bb8_sound_player").on("ended", play_bb8_sound)
+
+      let bb8_play_count = 0;
+      function play_bb8_sound(){
+        if (bb8_play_count > 0) {
+          $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
+          bb8_play_count--;
+        }
+      }
 
       socket.on('typing', function(data) {
         console.log('typing event recieved');
