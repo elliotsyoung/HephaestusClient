@@ -13,8 +13,20 @@ const
 {
   ipcMain
 } = require('electron')
+
+
 const PythonShell = require('python-shell');
+process.on('SIGINT', function()
+{
+  console.log('Quitting Python controller script');
+
+});
+
+
 var socket = require('socket.io-client')('https://fusionpaloalto.elliotsyoung.com');
+
+
+
 
 socket.emit("subscribe",
 {

@@ -10,11 +10,43 @@
     body {
       height: 100vh;
       background: repeating-linear-gradient( 45deg,
-      #392759,
-      #392759 10px,
-      #080708 10px,
-      #080708 20px);
+      #EBF5EE,
+      #EBF5EE 10px,
+      #78A1BB 10px,
+      #78A1BB 20px);
       color: white;
+      -webkit-animation: slide 20s linear infinite;
+      background-size: 200% 200%;
+      animation: barberpole 10s linear infinite;
+
+    }
+
+    @keyframes barberpole {
+      100% {
+        background-position: 100% 100%;
+      }
+    }
+
+    body {
+      margin: 0;
+      background-color: #269;
+      background-image: linear-gradient(white 2px, transparent 2px),
+      linear-gradient(90deg, white 2px, transparent 2px),
+      linear-gradient(rgba(255, 255, 255, .3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, .3) 1px, transparent 1px);
+      background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+      background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+      -webkit-animation: slide 20s linear infinite;
+      padding: 0px 15px 0px 15px;
+    }
+
+    @-webkit-keyframes slide {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: -400px -400px;
+      }
     }
 
     .vertical-center {
@@ -28,6 +60,10 @@
       margin-top: 1em;
       width: 25%;
     }
+
+    .text-background {
+      background-color: #283044;
+    }
   </style>
 </head>
 
@@ -36,10 +72,10 @@
     <div class="row text-center">
       <div class="col">
 
-        <h1 class="text-white bg-primary" style="border-radius: 10px; padding: 10px;">Teaching Assistant</h1>
+        <h1 class="text-white bg-primary text-background" style="border-radius: 10px; padding: 10px;">Teaching Assistant</h1>
         <!-- <h1 id="emotion" style="font-size: 110px;"></h1> -->
         <img id="emotion" class="" src="https://emojipedia-us.s3.amazonaws.com/thumbs/320/apple/118/slightly-smiling-face_1f642.png" alt="">
-        <h3 id="spoken-text" class="bg-primary" style="padding: 1em; border-radius: 1em;"></h3>
+        <h3 id="spoken-text" class="bg-primary text-background" style="padding: 1em; border-radius: 10px;"></h3>
         <h2 id="currently-typing" class="animated pulse infinite">Processing Response...</h2>
       </div>
       <!-- END OF COL -->
@@ -152,7 +188,7 @@
         if (!bb8_voice_activated) {
           kathy.Speak(msg);
         } else {
-          bb8_play_count = Math.floor(msg.split(" ").length/3);
+          bb8_play_count = Math.floor(msg.split(" ").length / 3);
           console.log();
           $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
         }
@@ -161,7 +197,8 @@
       $("#bb8_sound_player").on("ended", play_bb8_sound)
 
       let bb8_play_count = 0;
-      function play_bb8_sound(){
+
+      function play_bb8_sound() {
         if (bb8_play_count > 0) {
           $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
           bb8_play_count--;
