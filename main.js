@@ -134,7 +134,6 @@ if (process.env.ENV != "DEV")
 
       app.on('activate', function()
       {
-        console.log("Greetings!");
         // On OS X it's common to re-create a window in the app when the
         // dock icon is clicked and there are no other windows open.
         if (mainWindow === null)
@@ -153,7 +152,10 @@ if (process.env.ENV != "DEV")
 
       ipcMain.on('detect face', (event, arg) =>
       {
-        detect_face()
+        if (process.env.ENV != "DEV") {
+          console.log("not in dev mode");
+          detect_face()
+        }
       })
 
 
@@ -163,7 +165,9 @@ if (process.env.ENV != "DEV")
       function rotate_head(angle)
       {
         console.log("Rotating head:", angle);
-        servo_controller.send(`1 ${angle}`);
+        if (process.env.ENV != "DEV") {
+          servo_controller.send(`1 ${angle}`);
+        }
       }
 
       const facing_teacher_angle = 0;
