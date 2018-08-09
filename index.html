@@ -15,7 +15,7 @@
       #78A1BB 10px,
       #78A1BB 20px);
       color: white;
-      -webkit-animation: slide 20s linear infinite;
+      -webkit-animation: slide 10s linear infinite;
       background-size: 200% 200%;
       animation: barberpole 10s linear infinite;
 
@@ -30,13 +30,13 @@
     body {
       margin: 0;
       background-color: #269;
-      background-image: linear-gradient(white 2px, transparent 2px),
-      linear-gradient(90deg, white 2px, transparent 2px),
+      background-image: linear-gradient(green 2px, transparent 2px),
+      linear-gradient(90deg, green 2px, transparent 2px),
       linear-gradient(rgba(255, 255, 255, .3) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, .3) 1px, transparent 1px);
       background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
       background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
-      -webkit-animation: slide 20s linear infinite;
+      -webkit-animation: slide 6s linear infinite;
       padding: 0px 15px 0px 15px;
     }
 
@@ -166,7 +166,7 @@
       })
 
       let bb8_sounds = [];
-      for (let i = 1; i <= 20; i++) {
+      for (let i = 1; i <= 59; i++) {
         const file_name = `./bb8sounds/bb8-${i}.mp3`
         bb8_sounds.push(file_name);
       }
