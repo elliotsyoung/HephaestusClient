@@ -188,7 +188,7 @@
         if (!bb8_voice_activated) {
           kathy.Speak(msg);
         } else {
-          bb8_play_count = Math.floor(msg.split(" ").length / 4);
+          bb8_play_count = Math.floor(msg.split(" ").length / 6);
           console.log();
           $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
         }
