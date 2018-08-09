@@ -156,6 +156,7 @@ if (process.env.ENV != "DEV")
           console.log("not in dev mode");
           detect_face()
         }
+        socket.emit("robot speak command", "Hello there!");
       })
 
 
@@ -179,7 +180,6 @@ if (process.env.ENV != "DEV")
         if (process.env.ENV !="DEV") {
           rotate_head(facing_student_angle)
         }
-        socket.emit("robot speak command", "Hello there!");
 
         myCamera.snap()
         .then((result) =>
