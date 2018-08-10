@@ -10,5 +10,6 @@ try:
         ss.set_servo(servo, angle)
         sys.stdout.flush()
 finally:
-    print("End of Python process")
+    print("End of Python process, cleaning up...")
+    ss.cleanup()
     sys.stdout.flush()
