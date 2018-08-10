@@ -15,7 +15,7 @@
       #78A1BB 10px,
       #78A1BB 20px);
       color: white;
-      -webkit-animation: slide 20s linear infinite;
+      -webkit-animation: slide 10s linear infinite;
       background-size: 200% 200%;
       animation: barberpole 10s linear infinite;
 
@@ -30,13 +30,13 @@
     body {
       margin: 0;
       background-color: #269;
-      background-image: linear-gradient(white 2px, transparent 2px),
-      linear-gradient(90deg, white 2px, transparent 2px),
+      background-image: linear-gradient(green 2px, transparent 2px),
+      linear-gradient(90deg, green 2px, transparent 2px),
       linear-gradient(rgba(255, 255, 255, .3) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, .3) 1px, transparent 1px);
       background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
       background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
-      -webkit-animation: slide 20s linear infinite;
+      -webkit-animation: slide 6s linear infinite;
       padding: 0px 15px 0px 15px;
     }
 
@@ -72,7 +72,7 @@
     <div class="row text-center">
       <div class="col">
 
-        <h1 class="text-white bg-primary text-background" style="border-radius: 10px; padding: 10px;">Teaching Assistant</h1>
+        <h1 class="text-white bg-primary text-background" style="border-radius: 10px; padding: 10px;">Translator:</h1>
         <!-- <h1 id="emotion" style="font-size: 110px;"></h1> -->
         <img id="emotion" class="" src="https://emojipedia-us.s3.amazonaws.com/thumbs/320/apple/118/slightly-smiling-face_1f642.png" alt="">
         <h3 id="spoken-text" class="bg-primary text-background" style="padding: 1em; border-radius: 10px;"></h3>
@@ -166,13 +166,13 @@
       })
 
       let bb8_sounds = [];
-      for (let i = 1; i <= 20; i++) {
+      for (let i = 1; i <= 59; i++) {
         const file_name = `./bb8sounds/bb8-${i}.mp3`
         bb8_sounds.push(file_name);
       }
       console.log(bb8_sounds);
 
-      let bb8_voice_activated = false;
+      let bb8_voice_activated = true;
 
       socket.on('robot speak command', function(msg) {
         console.log("robot speak command recieved");
@@ -188,7 +188,7 @@
         if (!bb8_voice_activated) {
           kathy.Speak(msg);
         } else {
-          bb8_play_count = Math.floor(msg.split(" ").length / 3);
+          bb8_play_count = Math.floor(msg.split(" ").length / 6);
           console.log();
           $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
         }

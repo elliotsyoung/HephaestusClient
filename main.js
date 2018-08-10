@@ -16,17 +16,11 @@ const
 
 
 const PythonShell = require('python-shell');
-process.on('SIGINT', function()
-{
-  console.log('Quitting Python controller script');
+let servo_controller;
 
-});
 
 
 var socket = require('socket.io-client')('https://fusionpaloalto.elliotsyoung.com');
-
-
-
 
 socket.emit("subscribe",
 {
@@ -44,216 +38,231 @@ let myCamera;
 
 if (process.env.ENV != "DEV")
 {
+  servo_controller = new PythonShell('servo_controller.py');
   PiCamera = require('pi-camera');
   myCamera = new PiCamera(
-  {
-    mode: 'photo',
-    output: `${ __dirname }/pictures/capture.jpg`,
-    width: 640,
-    height: 480,
-    nopreview: true,
-    vflip: true
-  });
-
-}
-
-
-
-var Kairos = require('kairos-api');
-var client = new Kairos(app_keys.kairos_app_id, app_keys.kairos_app_key);
-
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
-
-function createWindow()
-{
-  // Create the browser window.
-  mainWindow = new BrowserWindow(
-  {
-    width: 800,
-    height: 600
-  })
-
-  // and load the index.html of the app.
-  mainWindow.loadURL(url.format(
-  {
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    // protocol: 'https:',
-    // pathname: 'soundcloud.com/couldever/maybe',
-    slashes: true
-  }))
-
-  mainWindow.maximize();
-  mainWindow.setMenu(null);
-
-  // mainWindow.maximize();
-  // mainWindow.setFullScreen(true);
-
-  // setTimeout(()=>{
-  //   mainWindow.focus();
-  //   mainWindow.setFullScreen(false);
-  // }, 3000)
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-
-  mainWindow.on('closed', function()
-  {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-  })
-  // Emitted when the window is closed.
-}
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
-
-// Quit when all windows are closed.
-app.on('window-all-closed', function()
-{
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin')
-  {
-    console.log("Goodbye.");
-    app.quit()
-  }
-})
-
-app.on('activate', function()
-{
-  console.log("Greetings!");
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null)
-  {
-    createWindow()
-  }
-})
-
-ipcMain.on('focus', (event, arg) =>
-{
-  console.log(arg) // prints "ping"
-  var spawn = require("child_process").spawn;
-  rotate_head(Math.floor(Math.random() * 150));
-  // mainWindow.focus();
-})
-
-ipcMain.on('detect face', (event, arg) =>
-{
-  detect_face()
-})
-
-
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-function rotate_head(angle)
-{
-  console.log("Rotating head:", angle);
-}
-
-const facing_teacher_angle = 0;
-const facing_student_angle = 60;
-
-function detect_face()
-{
-  rotate_head(facing_student_angle)
-  socket.emit("robot speak command", "Hello there!");
-
-
-
-  myCamera.snap()
-    .then((result) =>
     {
+      mode: 'photo',
+      output: `${ __dirname }/pictures/capture.jpg`,
+      width: 640,
+      height: 480,
+      nopreview: true,
+      vflip: true
+    });
 
-      const file = fs.readFileSync('./pictures/capture.jpg', 'base64');
+    process.on('SIGINT', function()
+    {
+      console.log('Quitting Python controller script');
+      servo_controller.end(function (err,code,signal) {
+        if (err) throw err;
+        console.log("===========CLOSING PYTHON SERVO CONTROLLER SCRIPT==========");
+        console.log('The exit code was: ' + code);
+        console.log('The exit signal was: ' + signal);
+        console.log('finished');
+        console.log('finished');
+        console.log("=====================");
+      });
+    });
+  }
 
-      var params = {
-        image: file,
-      };
+  var Kairos = require('kairos-api');
+  var client = new Kairos(app_keys.kairos_app_id, app_keys.kairos_app_key);
 
-      client.detect(params)
+
+  // Keep a global reference of the window object, if you don't, the window will
+  // be closed automatically when the JavaScript object is garbage collected.
+  let mainWindow
+
+  function createWindow()
+  {
+    // Create the browser window.
+    mainWindow = new BrowserWindow(
+      {
+        width: 800,
+        height: 600
+      })
+
+      // and load the index.html of the app.
+      mainWindow.loadURL(url.format(
+        {
+          pathname: path.join(__dirname, 'index.html'),
+          protocol: 'file:',
+          // protocol: 'https:',
+          // pathname: 'soundcloud.com/couldever/maybe',
+          slashes: true
+        }))
+
+        mainWindow.maximize();
+        mainWindow.setMenu(null);
+
+        // mainWindow.maximize();
+        // mainWindow.setFullScreen(true);
+
+        // setTimeout(()=>{
+        //   mainWindow.focus();
+        //   mainWindow.setFullScreen(false);
+        // }, 3000)
+        // Open the DevTools.
+        // mainWindow.webContents.openDevTools()
+
+        mainWindow.on('closed', function()
+        {
+          // Dereference the window object, usually you would store windows
+          // in an array if your app supports multi windows, this is the time
+          // when you should delete the corresponding element.
+          mainWindow = null
+        })
+        // Emitted when the window is closed.
+      }
+
+      // This method will be called when Electron has finished
+      // initialization and is ready to create browser windows.
+      // Some APIs can only be used after this event occurs.
+      app.on('ready', createWindow)
+
+      // Quit when all windows are closed.
+      app.on('window-all-closed', function()
+      {
+        // On OS X it is common for applications and their menu bar
+        // to stay active until the user quits explicitly with Cmd + Q
+        if (process.platform !== 'darwin')
+        {
+          console.log("Goodbye.");
+          app.quit()
+        }
+      })
+
+      app.on('activate', function()
+      {
+        // On OS X it's common to re-create a window in the app when the
+        // dock icon is clicked and there are no other windows open.
+        if (mainWindow === null)
+        {
+          createWindow()
+        }
+      })
+
+      ipcMain.on('focus', (event, arg) =>
+      {
+        console.log(arg) // prints "ping"
+        var spawn = require("child_process").spawn;
+        rotate_head(Math.floor(Math.random() * 100));
+        // mainWindow.focus();
+      })
+
+      ipcMain.on('detect face', (event, arg) =>
+      {
+        if (process.env.ENV != "DEV") {
+          console.log("not in dev mode");
+          detect_face()
+        }
+        socket.emit("robot speak command", "Hello there!");
+      })
+
+
+
+      // In this file you can include the rest of your app's specific main process
+      // code. You can also put them in separate files and require them here.
+      function rotate_head(angle)
+      {
+        console.log("Rotating head:", angle);
+        if (process.env.ENV != "DEV") {
+          servo_controller.send(`1 ${angle}`);
+        }
+      }
+
+      const facing_teacher_angle = 0;
+      const facing_student_angle = 60;
+
+      function detect_face()
+      {
+        // this program is also tested on a mac locally before deploying to the rapsberry pi
+        if (process.env.ENV !="DEV") {
+          rotate_head(facing_student_angle)
+        }
+
+        myCamera.snap()
+        .then((result) =>
+        {
+          const file = fs.readFileSync('./pictures/capture.jpg', 'base64');
+          var params = {
+            image: file,
+          };
+          client.detect(params)
+          .then(function(result)
+          {
+            console.log("RESULT OF FACIAL RECOGNITION");
+            if (result.body.images && result.body.images[0].faces)
+            {
+              console.log("Detected a face!");
+              recognize_face()
+            }
+            else
+            {
+              console.log("No face detected.");
+              rotate_head(facing_teacher_angle)
+              socket.emit("robot speak command", "I cannot see anybody. Tell them to stand in front of the camera.");
+            }
+          })
+          .catch(function(err)
+          {
+            console.log(err);
+          });
+
+        })
+      }
+
+      function recognize_face()
+      {
+        const file = fs.readFileSync('./pictures/capture.jpg', 'base64');
+
+        var params = {
+          image: file,
+          gallery_name: "elliot_faces"
+        };
+
+        client.recognize(params)
         .then(function(result)
         {
-          console.log("RESULT OF FACIAL RECOGNITION");
-          if (result.body.images && result.body.images[0].faces)
+
+          if (result.body.images[0].candidates)
           {
-            console.log("Detected a face!");
-            recognize_face()
+            const recognized_individual = result.body.images[0].candidates[0].subject_id;
+            const percent_confidence = Math.floor(result.body.images[0].candidates[0].confidence * 100);
+            socket.emit("robot speak command", `Oh, I recognize you! Your name is ${recognized_individual}, I'm ${percent_confidence} percent sure of it!`);
+            rotate_head(facing_teacher_angle);
           }
           else
           {
-            console.log("No face detected.");
             rotate_head(facing_teacher_angle)
-            socket.emit("robot speak command", "I cannot see anybody. Tell them to stand in front of the camera.");
+            // socket.emit("robot speak command", "I see a face but I don't know who it is.");
+            enroll_face();
           }
         })
         .catch(function(err)
         {
           console.log(err);
         });
-
-    })
-}
-
-function recognize_face()
-{
-  const file = fs.readFileSync('./pictures/capture.jpg', 'base64');
-
-  var params = {
-    image: file,
-    gallery_name: "elliot_faces"
-  };
-
-  client.recognize(params)
-    .then(function(result)
-    {
-
-      if (result.body.images[0].candidates)
-      {
-        const recognized_individual = result.body.images[0].candidates[0].subject_id;
-        const percent_confidence = Math.floor(result.body.images[0].candidates[0].confidence * 100);
-        socket.emit("robot speak command", `Oh, I recognize you! Your name is ${recognized_individual}, I'm ${percent_confidence} percent sure of it!`);
-        rotate_head(facing_teacher_angle);
       }
-      else
+
+      function enroll_face()
       {
-        rotate_head(facing_teacher_angle)
-        // socket.emit("robot speak command", "I see a face but I don't know who it is.");
-        enroll_face();
+        const file = fs.readFileSync('./pictures/capture.jpg', 'base64');
+
+        var params = {
+          image: file,
+          gallery_name: "elliot_faces",
+          subject_id: "Rapunzel"
+        };
+
+        client.enroll(params)
+        .then(function(result)
+        {
+          console.log(result);
+          socket.emit("robot speak command", "Okay, I remember you know Rapunzel.");
+        })
+        .catch(function(err)
+        {
+          console.log(err);
+        });
       }
-    })
-    .catch(function(err)
-    {
-      console.log(err);
-    });
-}
-
-function enroll_face()
-{
-  const file = fs.readFileSync('./pictures/capture.jpg', 'base64');
-
-  var params = {
-    image: file,
-    gallery_name: "elliot_faces",
-    subject_id: "Rapunzel"
-  };
-
-  client.enroll(params)
-    .then(function(result)
-    {
-      console.log(result);
-      socket.emit("robot speak command", "Okay, I remember you know Rapunzel.");
-    })
-    .catch(function(err)
-    {
-      console.log(err);
-    });
-}
