@@ -147,7 +147,7 @@ if (process.env.ENV != "DEV")
       {
         console.log(arg) // prints "ping"
         var spawn = require("child_process").spawn;
-        rotate_head(Math.floor(Math.random() * 100));
+        rotate_head(Math.floor(Math.random() * 70));
         // mainWindow.focus();
       })
 
