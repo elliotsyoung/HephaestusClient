@@ -173,7 +173,7 @@ if (process.env.ENV != "DEV")
       }
 
       const facing_teacher_angle = 0;
-      const facing_student_angle = 60;
+      const facing_student_angle = 160;
 
       function detect_face()
       {
