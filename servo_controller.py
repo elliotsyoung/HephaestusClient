@@ -10,7 +10,7 @@ print("turning head")
 print(servo)
 print(angle)
 sys.stdout.flush()
-time.sleep(1)
+time.sleep(1.5)
 
 print("End of Python process, cleaning up...")
 ss.cleanup()
