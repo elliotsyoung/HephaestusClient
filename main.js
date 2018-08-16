@@ -35,8 +35,8 @@ socket.on("change voice", (new_voice) =>
 
 socket.on('rotate head', (angle) =>
 {
-  console.log("recieved socket request to rotate head" + angle + " degrees");
-  rotate_head(parseInt(angle));
+  console.log("recieved socket request to rotate head " + angle + " degrees");
+  rotate_head(angle);
 })
 
 let PiCamera;
@@ -181,8 +181,8 @@ function rotate_head(angle)
   }
 }
 
-      const facing_teacher_angle = 0;
-      const facing_student_angle = 160;
+const facing_teacher_angle = 0;
+const facing_student_angle = 160;
 
 function detect_face()
 {
