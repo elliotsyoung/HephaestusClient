@@ -45,7 +45,7 @@ let myCamera;
 if (process.env.ENV != "DEV")
 {
   servo_controller = new PythonShell('servo_controller.py');
-  servo_controller.on("message", (message) => console.log(message));
+  servo_controller.on("message", (message) => console.log("Message from Python Script:", message));
   PiCamera = require('pi-camera');
   myCamera = new PiCamera(
   {

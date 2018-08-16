@@ -8,8 +8,6 @@ try:
         servo = int(parsed_message[0])
         angle = int(parsed_message[1])
         ss.set_servo(servo, angle)
-        sys.stdout.flush()
 finally:
     print("End of Python process, cleaning up...")
     ss.cleanup()
-    sys.stdout.flush()
