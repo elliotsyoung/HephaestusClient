@@ -19,6 +19,7 @@
 #
 from servosix import ServoSix
 import sys
+import time
 ss = ServoSix()
 
 servo = 1
@@ -28,6 +29,7 @@ print("turning head")
 print(servo)
 print(angle)
 sys.stdout.flush()
+time.sleep(1)
 
 print("End of Python process, cleaning up...")
 ss.cleanup()
