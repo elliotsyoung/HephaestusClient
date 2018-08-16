@@ -21,10 +21,8 @@ from servosix import ServoSix
 import sys
 ss = ServoSix()
 
-message_from_node = sys.stdin.readline()
-parsed_message = message_from_node.split(" ")
-servo = int(parsed_message[0])
-angle = int(parsed_message[1])
+servo = 1
+angle = 0
 ss.set_servo(servo, angle)
 print("turning head")
 print(servo)
