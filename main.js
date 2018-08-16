@@ -138,6 +138,17 @@ app.on('window-all-closed', function()
     console.log("Goodbye.");
     app.quit()
   }
+  servo_controller.end(function(err, code, signal)
+  {
+    if (err) throw err;
+    console.log("===========CLOSING PYTHON SERVO CONTROLLER SCRIPT==========");
+    console.log('The exit code was: ' + code);
+    console.log('The exit signal was: ' + signal);
+    console.log('finished');
+    console.log('finished');
+    console.log("=====================");
+  });
+
 })
 
 app.on('activate', function()
