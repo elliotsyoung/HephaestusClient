@@ -137,8 +137,7 @@ app.on('activate', function()
 ipcMain.on('focus', (event, arg) =>
 {
   console.log(arg) // prints "ping"
-  var spawn = require("child_process").spawn;
-  rotate_head(Math.floor(Math.random() * 70));
+  rotate_head(Math.floor(Math.random() * 170));
   // mainWindow.focus();
 })
 
@@ -164,7 +163,7 @@ function rotate_head(angle)
     var options = {
       args: ['1', `${angle}`]
     };
-    PythonShell.run("servo_controller_test_2.py", options, (err) =>
+    PythonShell.run("servo_controller.py", options, (err) =>
     {
       if (err)
       {
