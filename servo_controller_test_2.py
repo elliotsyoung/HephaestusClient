@@ -22,8 +22,8 @@ import sys
 import time
 ss = ServoSix()
 
-servo = 1
-angle = 170
+servo = int(sys.argv[1])
+angle = int(sys.argv[2])
 ss.set_servo(servo, angle)
 print("turning head")
 print(servo)
