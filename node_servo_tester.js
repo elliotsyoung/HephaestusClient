@@ -8,4 +8,5 @@ PythonShell.run("servo_controller_test_2.py", options, (err) =>
   {
     console.log(err);
   }
+  console.log();
 });

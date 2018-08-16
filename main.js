@@ -170,6 +170,7 @@ function rotate_head(angle)
       {
         console.log(err);
       }
+      console.log("Ended servo process");
     });
   }
 }
