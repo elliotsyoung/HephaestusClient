@@ -44,8 +44,6 @@ let myCamera;
 
 if (process.env.ENV != "DEV")
 {
-  servo_controller = new PythonShell('servo_controller.py');
-  servo_controller.on("message", (message) => console.log("Message from Python Script:", message));
   PiCamera = require('pi-camera');
   myCamera = new PiCamera(
   {
@@ -55,21 +53,6 @@ if (process.env.ENV != "DEV")
     height: 480,
     nopreview: true,
     vflip: true
-  });
-
-  process.on('SIGINT', function()
-  {
-    console.log('Quitting Python controller script');
-    servo_controller.end(function(err, code, signal)
-    {
-      if (err) throw err;
-      console.log("===========CLOSING PYTHON SERVO CONTROLLER SCRIPT==========");
-      console.log('The exit code was: ' + code);
-      console.log('The exit signal was: ' + signal);
-      console.log('finished');
-      console.log('finished');
-      console.log("=====================");
-    });
   });
 }
 
@@ -188,7 +171,16 @@ function rotate_head(angle)
   console.log("Rotating head:", angle);
   if (process.env.ENV != "DEV")
   {
-    servo_controller.send(`1 ${angle}`);
+    var options = {
+      args: ['1', `${angle}`]
+    };
+    PythonShell.run("servo_controller_test_2.py", options, (err) =>
+    {
+      if (err)
+      {
+        console.log(err);
+      }
+    });
   }
 }
 
