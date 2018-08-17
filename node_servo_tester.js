@@ -1,6 +1,6 @@
 const PythonShell = require('python-shell');
 var options = {
-  args: ['1', `${process.argv[1]}`]
+  args: ['1', `170`]
 };
 PythonShell.run("servo_controller_test_2.py", options, (err) =>
 {
