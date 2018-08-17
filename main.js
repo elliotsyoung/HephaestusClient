@@ -8,7 +8,6 @@ const app_keys = require('./keys');
 const path = require('path')
 const url = require('url')
 const fs = require('fs');
-const spawn = require('child_process').spawn;
 const
 {
   ipcMain
@@ -16,8 +15,6 @@ const
 
 
 const PythonShell = require('python-shell');
-let servo_controller;
-
 
 
 var socket = require('socket.io-client')('https://fusionpaloalto.elliotsyoung.com');
@@ -173,7 +170,7 @@ function rotate_head(angle)
     //   console.log("Ended servo process");
     // });
     const spawn = require("child_process").spawn;
-    const pythonProcess = spawn('python', ["servo_controller.py", "1", `${angle}`]);
+    const pythonProcess = spawn('node', ["node_servo_tester", `${angle}`]);
 
   }
 }
