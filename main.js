@@ -160,17 +160,21 @@ function rotate_head(angle)
   console.log("Rotating head:", angle);
   if (process.env.ENV != "DEV")
   {
-    var options = {
-      args: ['1', `${angle}`]
-    };
-    PythonShell.run("servo_controller.py", options, (err) =>
-    {
-      if (err)
-      {
-        console.log(err);
-      }
-      console.log("Ended servo process");
-    });
+
+    // var options = {
+    //   args: ['1', `${angle}`]
+    // };
+    // PythonShell.run("servo_controller.py", options, (err) =>
+    // {
+    //   if (err)
+    //   {
+    //     console.log(err);
+    //   }
+    //   console.log("Ended servo process");
+    // });
+    const spawn = require("child_process").spawn;
+    const pythonProcess = spawn('python', ["servo_controller.py", "1", `${angle}`]);
+
   }
 }
 
