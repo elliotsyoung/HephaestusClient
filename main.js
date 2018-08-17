@@ -14,9 +14,6 @@ const
 } = require('electron')
 
 
-const PythonShell = require('python-shell');
-
-
 var socket = require('socket.io-client')('https://fusionpaloalto.elliotsyoung.com');
 
 socket.emit("subscribe",
@@ -157,17 +154,19 @@ function rotate_head(angle)
   console.log("Rotating head:", angle);
   if (process.env.ENV != "DEV")
   {
-
+    let PythonShell = require('python-shell');
     var options = {
       args: ['1', `${angle}`]
     };
-    PythonShell.run("servo_controller.py", options, (err) =>
+    PythonShell.run("servo_controller.py", options, (err, logs) =>
     {
       if (err)
       {
         console.log(err);
       }
-      console.log("Ended servo process");
+      console.log("Ended servo process, logs below:");
+      console.log(logs);
+      PythonShell = null;
     });
 
   }
