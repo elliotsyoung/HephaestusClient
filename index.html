@@ -159,11 +159,11 @@
 
       ipcRenderer.on('robot speak command', function(event, msg) {
         console.log("robot speak command recieved");
-        // console.log(msg);
-        // $("#emotion").attr("src", "https://emojipedia-us.s3.amazonaws.com/thumbs/320/apple/118/slightly-smiling-face_1f642.png")
-        // $("#spoken-text").html(msg)
-        // $("#spoken-text").show();
-        // $('#currently-typing').hide();
+        console.log(msg);
+        $("#emotion").attr("src", "https://emojipedia-us.s3.amazonaws.com/thumbs/320/apple/118/slightly-smiling-face_1f642.png")
+        $("#spoken-text").html(msg)
+        $("#spoken-text").show();
+        $('#currently-typing').hide();
         // animateSmiley();
         // $("#emotion").removeClass("animated swing infinite")
         // $("#emotion").addClass("animated rubberBand")
