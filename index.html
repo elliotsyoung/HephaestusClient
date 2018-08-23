@@ -157,24 +157,24 @@
 
       let bb8_voice_activated = true;
 
-      // socket.on('robot speak command', function(msg) {
-      //   console.log("robot speak command recieved");
-      //   console.log(msg);
-      //   $("#emotion").attr("src", "https://emojipedia-us.s3.amazonaws.com/thumbs/320/apple/118/slightly-smiling-face_1f642.png")
-      //   $("#spoken-text").html(msg)
-      //   $("#spoken-text").show();
-      //   $('#currently-typing').hide();
-      //   animateSmiley();
-      //   $("#emotion").removeClass("animated swing infinite")
-      //   $("#emotion").addClass("animated rubberBand")
-      //   if (!bb8_voice_activated) {
-      //     kathy.Speak(msg);
-      //   } else {
-      //     bb8_play_count = Math.floor(msg.split(" ").length / 6);
-      //     console.log();
-      //     $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
-      //   }
-      // });
+      socket.on('robot speak command', function(msg) {
+        console.log("robot speak command recieved");
+        console.log(msg);
+        $("#emotion").attr("src", "https://emojipedia-us.s3.amazonaws.com/thumbs/320/apple/118/slightly-smiling-face_1f642.png")
+        $("#spoken-text").html(msg)
+        $("#spoken-text").show();
+        $('#currently-typing').hide();
+        animateSmiley();
+        $("#emotion").removeClass("animated swing infinite")
+        $("#emotion").addClass("animated rubberBand")
+        if (!bb8_voice_activated) {
+          kathy.Speak(msg);
+        } else {
+          bb8_play_count = Math.floor(msg.split(" ").length / 6);
+          console.log();
+          $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
+        }
+      });
 
       $("#bb8_sound_player").on("ended", play_bb8_sound)
 
