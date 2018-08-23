@@ -31,7 +31,13 @@ socket.on('rotate head', (angle) =>
 {
   console.log("recieved socket request to rotate head " + angle + " degrees");
   rotate_head(angle);
-})
+});
+
+socket.on('robot speak command', (msg) =>
+{
+  console.log("robot speak command received");
+  mainWindow.webContents.send("robot speak command", msg);
+});
 
 let PiCamera;
 let myCamera;

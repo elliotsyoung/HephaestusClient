@@ -157,7 +157,7 @@
 
       let bb8_voice_activated = true;
 
-      socket.on('robot speak command', function(msg) {
+      ipcRenderer.on('robot speak command', function(event, msg) {
         console.log("robot speak command recieved");
         console.log(msg);
         $("#emotion").attr("src", "https://emojipedia-us.s3.amazonaws.com/thumbs/320/apple/118/slightly-smiling-face_1f642.png")
@@ -211,21 +211,8 @@
       // Sound Player Setup
       //################################################################
       const sound_player = require('play-sound')(opts = {});
-      //
-      // $('#emotion').click(() => {
-      //   if($('#emotion').hasClass('animated')){
-      //     console.log("you clicked during an animation.");
-      //     $('#emotion').removeClass('animated rubberBand')
-      //   } else{
-      //     animateBounce();
-      //   }
-      //   sound_player.play('./media/bounce.mp3', (err) => {console.log(err);})
-      // });
 
-      const array1 = ['I wonder if ', 'Seems like ', 'It\'s probably because ']
-      const array2 = ['the dog is feeling ', 'your friend wasnt very ', 'im not quite ']
-      const array3 = ['Joyful! ', 'angry.', 'excited!']
-      let poke_number = 0
+
       $("#emotion").mouseup(function() {
 
         var el = $(this),
