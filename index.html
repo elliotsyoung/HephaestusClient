@@ -169,6 +169,7 @@
         if (!bb8_voice_activated) {
           kathy.Speak(msg);
         } else if (process.env.ENV == "DEV") {
+          // for some reason playing sounds on the raspberry pi interferes with the servo controller, so the sound has to be played from the development environment
           bb8_play_count = Math.floor(msg.split(" ").length / 6);
           console.log();
           $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
