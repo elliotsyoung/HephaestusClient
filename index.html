@@ -166,13 +166,13 @@
         $('#currently-typing').hide();
         $("#emotion").removeClass("animated swing infinite")
         $("#emotion").addClass("animated rubberBand")
-        // if (!bb8_voice_activated) {
-        //   kathy.Speak(msg);
-        // } else {
-        //   bb8_play_count = Math.floor(msg.split(" ").length / 6);
-        //   console.log();
-        //   $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
-        // }
+        if (!bb8_voice_activated) {
+          kathy.Speak(msg);
+        } else {
+          bb8_play_count = Math.floor(msg.split(" ").length / 6);
+          console.log();
+          $("#bb8_sound_player").attr("src", bb8_sounds[Math.floor(Math.random() * bb8_sounds.length)]);
+        }
       });
 
       $("#bb8_sound_player").on("ended", play_bb8_sound)
