@@ -130,8 +130,7 @@ app.on('activate', function()
 
 ipcMain.on('focus', (event, arg) =>
 {
-  console.log(arg) // prints "ping"
-  rotate_head(Math.floor(Math.random() * 170));
+  // rotate_head(Math.floor(Math.random() * 170));
   // mainWindow.focus();
 })
 
