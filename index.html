@@ -225,9 +225,7 @@
         $('#emotion').addClass("animated rubberBand");
 
         console.log(el.attr('class'));
-        sound_player.play('./media/bounce.mp3', (err) => {
-          console.log(err);
-        })
+
         ipcRenderer.send("detect face");
       });
 
