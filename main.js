@@ -174,8 +174,8 @@ function rotate_head(angle)
   }
 }
 
-const facing_teacher_angle = 0;
-const facing_student_angle = 160;
+const facing_teacher_angle = 40;
+const facing_student_angle = 140;
 
 function detect_face()
 {
